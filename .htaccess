@@ -1,0 +1,10 @@
+# Fichier de coniguration du server Apache
+
+# Active ou désactive l'exécution du moteur de réécriture
+
+RewriteEngine on
+
+
+# Définit les règles pour le moteur de réécriture
+
+RewriteRule ^(.*)$ public/index.php [L]
