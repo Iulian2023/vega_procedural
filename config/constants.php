@@ -26,3 +26,15 @@
      */
 
      const SRC = ROOT . "/src";
+
+     /**
+     * Cette constante représente le raccourci permettant d'accéder au coeur de Vega
+     */
+
+     const VEGA_CORE = ROOT . "/vegaCore";
+
+     /**
+     * Cette constante représente le raccourci permettant d'accéder au dossier des contrôleurs
+     */
+
+     const CONTROLLER = ROOT . "/src/controller";

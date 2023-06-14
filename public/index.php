@@ -19,6 +19,8 @@
      * ----------------------------------------------------
      */
 
+
+
     // Amorçage de l'application
     require __DIR__ . "/../config/bootstrap.php";
 

@@ -32,8 +32,28 @@ declare(strict_types=1);
       * @return string
       */
      function handleRequest() : string {
+        
+        // Chargement du routeur
+        require VEGA_CORE . "/routing/router.php";
+
+        // Si aucun contrôleur n'existe:
+            // Affiche la page de bienvenue dans le framework
+
+        // Dans le cas contraire,
+        if ( ! controller_exists() ) {
+            die("Aucun contrôleur");
+        }
+        // Exécution du routeur et récupération de sa réponse
+
+        // Exécution du côntroleur pour générer la réponse correspondante à la requête
+        // Récupération de cette réponse.
+
+        // Retour de cette réponse au contrôleur frontal
+
         return "hello";
+
      }
+
 
     
 ?>
