@@ -30,15 +30,12 @@
     // Si le client essaye de récuperer la réponse de noyau via 
     // autre chose que le terminal
     if (php_sapi_name() !== "cli") {
-        // Récupération de la réponse de noyeau
+        // Soumission de la requête et Récupération de la réponse de la  part du noyeau
         $reponse = handleRequest();
         
         // Affichange de cette réponse au client
         echo $reponse;
     }
-
-
-    // echo $reponse;
 
 
 ?>

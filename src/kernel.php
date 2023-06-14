@@ -37,21 +37,72 @@ declare(strict_types=1);
         require VEGA_CORE . "/routing/router.php";
 
         // Si aucun contrôleur n'existe:
-            // Affiche la page de bienvenue dans le framework
+        
 
-        // Dans le cas contraire,
+
         if ( ! controller_exists() ) {
-            die("Aucun contrôleur");
+            // Affiche la page de bienvenue dans le framework
+            return loadHttpKarnelResource("defaultWelcome");      
         }
+        // Dans le cas contraire,
+
+        // Charger les routes dont l'application attend la réception
+        require CONFIG . "/routes.php";
+        
         // Exécution du routeur et récupération de sa réponse
+        $router_response = run();
+
 
         // Exécution du côntroleur pour générer la réponse correspondante à la requête
         // Récupération de cette réponse.
+        $controllerResponse = getControllerResponse($router_response);
 
+        return $controllerResponse;
         // Retour de cette réponse au contrôleur frontal
+     }
 
-        return "hello";
+     /**
+      * Cette fonction du routeur permet de récupérer la réponse générée 
+      * par le coôntrleur en charge de la requête
+      *
+      * @param string $router_response
+      * @return array|null
+      */
+     function getControllerResponse(array|null $router_response) {
+        if ( $router_response === null ) 
+        {
+            http_response_code(404);
+            return loadHttpKarnelResource("notFound");
+        }
 
+        // var_dump($router_response); die();
+        $controller = $router_response['controller'];
+        $action     = $router_response['action'];
+
+        if (isset($router_response['parameters']) && !empty($router_response['parameters'])) {
+            $parametres = $router_response['parameters'];
+
+            require CONTROLLER . "/$controller.php";
+            return $action($parametres);
+        }
+        
+        require CONTROLLER . "/$controller.php";
+        return $action();
+     }
+
+
+
+     /**
+      * Cette fonction du noyau lui permet de charger une ressource
+      *
+      * @param string $resource_name
+      * @return string
+      */
+     function loadHttpKarnelResource(string $resource_name) : string
+     {
+        ob_start();
+        require VEGA_CORE . "/httpKernel/resources/$resource_name.html.php";
+        return ob_get_clean();
      }
 
 

@@ -55,15 +55,60 @@
         $route[] = $route_uri;
         $route[] = $route_action;
 
-        $routes[$http_method] = $route;
+        $routes[$http_method][] = $route;
     }
 
 
-     function run()
+    /**
+     * Cette méthode permet d'exécuter le routeur
+     *
+     * @return array|null
+     */
+     function run() : ?array
      {
         global $routes;
+
+        $request_uri = urldecode(parse_url(strip_tags(trim($_SERVER['REQUEST_URI'])), PHP_URL_PATH));
+        
+        foreach ($routes[$_SERVER['REQUEST_METHOD']] as $route) {
+            $route_uri = $route[0];
+
+            $pattern = preg_replace("#{[a-z]+}#", "([0-9a-zA-Z-_]+)", $route_uri);
+            $pattern = "#^$pattern$#";
+
+
+            if ( preg_match($pattern, $request_uri, $matches) ) 
+            {    
+                array_shift($matches);
+                $parametres = $matches;
+
+                $controller = $route[1][0];
+                $action = $route[1][1];
+
+                if ( isset($parametres) && ! empty($parametres) ) {
+                    return [
+                        "controller" => $controller,
+                        "action" => $action,
+                        "parameters" => $parametres
+                    ];
+                }
+
+                return [
+                    "controller" => $controller,
+                    "action" => $action,
+                ];
+
+            }
+        }
+
+        return null;
      }
 
+     /**
+      * Cette fonction du routeur lui permet de vérifier si au  moins un contrôleur existe
+      *
+      * @return boolean
+      */
      function controller_exists() : bool
      {
 
