@@ -5,6 +5,8 @@
     
     $_ENV = parse_ini_file($env_file);
 
+    var_dump($env_file); die();
+
     if (isset($_ENV['APP_ENV']) && !empty($_ENV['APP_ENV'])) 
     {
         if ($_ENV['APP_ENV'] === "dev" || $_ENV['APP_ENV'] === "development") {
