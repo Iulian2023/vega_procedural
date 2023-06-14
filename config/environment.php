@@ -1,6 +1,6 @@
 <?php
 
-    $env_file = file_exists(__DIR__ . "/../env.local.conf") ? __DIR__ . "/../env.local.conf" : __DIR__ . "/../env.local.conf";
+    $env_file = file_exists(__DIR__ . "/../env.local.conf") ? __DIR__ . "/../env.local.conf" : __DIR__ . "/../env.conf";
     
     
     $_ENV = parse_ini_file($env_file);
