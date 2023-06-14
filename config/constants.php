@@ -20,3 +20,9 @@
      * Cette constante représente le raccourci permettant d'accéder au dossier de configuration
      */
     const CONFIG = ROOT . "/config";
+
+        /**
+     * Cette constante représente le raccourci permettant d'accéder au dossier "src"
+     */
+
+     const SRC = ROOT . "/src";
