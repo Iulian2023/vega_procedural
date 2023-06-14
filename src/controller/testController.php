@@ -1,7 +1,9 @@
 <?php
 
     function index() : string {
-        return "hello";
+        ob_start();
+        require TEMPLATES . "/test.html.php";
+        return ob_get_clean();
     }
 
 ?>

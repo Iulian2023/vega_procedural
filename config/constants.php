@@ -38,3 +38,9 @@
      */
 
      const CONTROLLER = ROOT . "/src/controller";
+
+     /**
+     * Cette constante représente le raccourci permettant d'accéder au dossier des templates
+     */
+
+     const TEMPLATES = ROOT . "/templates";
