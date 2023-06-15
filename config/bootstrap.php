@@ -33,5 +33,5 @@
     require CONFIG . "/session.php";
 
     // Chargement de monolog
-    // require CONFIG . "monolog.php";
+    require CONFIG . "/monolog.php";
 ?>

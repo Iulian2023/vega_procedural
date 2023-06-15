@@ -2,6 +2,8 @@
 
     get("/", ["testController", "index"]);
 
-    get("/post/edit/{id}", ["postController", "edit"]);
+    get("/hello", ["testController", "toGreat"]);
+
+    get("/users", ["userController", "index"]);
 
 ?>

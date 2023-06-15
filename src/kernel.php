@@ -71,6 +71,7 @@ declare(strict_types=1);
      function getControllerResponse(array|null $router_response) {
         if ( $router_response === null ) 
         {
+            generateLog(2, "L'url : $_SERVER[REQUEST_URI] n'a pas été trouvée.");
             http_response_code(404);
             return loadHttpKarnelResource("notFound");
         }

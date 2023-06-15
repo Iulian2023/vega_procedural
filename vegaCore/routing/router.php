@@ -68,6 +68,10 @@
      {
         global $routes;
 
+        if ( !isset($routes) || empty($routes) ) {
+            throw new Exception("No route found");
+        }
+
         $request_uri = urldecode(parse_url(strip_tags(trim($_SERVER['REQUEST_URI'])), PHP_URL_PATH));
         
         foreach ($routes[$_SERVER['REQUEST_METHOD']] as $route) {

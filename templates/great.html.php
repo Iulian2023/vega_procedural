@@ -6,8 +6,6 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Welcome <?= $firstName; ?></h1>
-
-    <p>La somme de 1 + 1 est de : <?= $somme ?></p>
+    <h1>hello</h1>
 </body>
 </html>

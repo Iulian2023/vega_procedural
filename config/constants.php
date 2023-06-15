@@ -44,3 +44,9 @@
      */
 
      const TEMPLATES = ROOT . "/templates";
+
+     /**
+     * Cette constante représente le raccourci permettant d'accéder au controller abstrait
+     */
+
+     const ABSTRACT_CONTROLLER = ROOT . "/vegaCore/abstractController/abstractController.php";
