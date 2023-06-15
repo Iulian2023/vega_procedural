@@ -1,0 +1,30 @@
+<?php 
+
+    if ( php_sapi_name() !== 'cli' ) 
+    {
+        die("An error occurred, try again");
+    }
+
+    require dirname(__DIR__) . "/vegaCore/console/app.php";
+
+    $action = $argv[1] ?? 'help';
+
+    if ( empty($action) || ($action === "help") ) 
+    {
+        help();
+    }
+    else 
+    {
+        $parts = explode(":", $action);
+        
+        if ( is_callable($parts[0]) ) 
+        {
+            call_user_func($parts[0], $parts[1] ?? '', $argv ?? []);
+        }
+        else {
+            echo "\nThat command is not recognised.\n";
+            help();
+        }
+    }
+
+?>
