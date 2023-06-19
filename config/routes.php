@@ -1,5 +1,5 @@
 <?php 
 
-    get("/", ["testController", "index"]);
+    get("/", ["visitor/welcome/welcomeController", "index"]);
 
 ?>
