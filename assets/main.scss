@@ -1,3 +1,9 @@
-/* On a charge les layouts */
+/* Chargement de abstract */
+@import "./abstract/variables";
+
+/* Chargement de base */
+@import "./base/classes";
+
+/* Chargement de layouts */
 
 @import "./layouts/body/body";

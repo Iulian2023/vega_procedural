@@ -1,0 +1,1 @@
+https://drawsql.app/teams/iulian/diagrams/procedural-auth/embed
