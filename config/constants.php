@@ -50,3 +50,9 @@
      */
 
      const ABSTRACT_CONTROLLER = ROOT . "/vegaCore/abstractController/abstractController.php";
+     
+     /**
+     * Cette constante représente le raccourci permettant d'accéder au validateur
+     */
+
+     const VALIDATOR = VEGA_CORE . "/validation/validator.php";

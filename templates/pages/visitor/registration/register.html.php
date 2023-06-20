@@ -31,6 +31,12 @@
                         <label for="confirmPassword">Confirmation du mot de passe</label>
                         <input type="password" name="confirmPassword" id="confirmPassword" class="form-control" >
                     </div>
+                    <div class="mb-3 d-none">
+                        <input type="hidden" name="csrf_token" value="<?= csrf_token(); ?>">
+                    </div>
+                    <div class="mb-3 d-none">
+                        <input type="hidden" name="honey_pot" value="">
+                    </div>
                     <div class="mb-3">
                         <input type="submit" class="btn btn-primary shadow" value="S'inscrire">
                     </div>
