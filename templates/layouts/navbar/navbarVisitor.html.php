@@ -9,12 +9,18 @@
                     <li class="nav-item">
                         <a class="nav-link<?= ($_SERVER['REQUEST_URI'] === '/') ? ' active' : '' ;?>"<?= ($_SERVER['REQUEST_URI'] === '/') ? ' aria-current="page"' : '' ?> href="/">Accueil</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link<?= ($_SERVER['REQUEST_URI'] === '/login') ? ' active' : '' ;?>"<?= ($_SERVER['REQUEST_URI'] === '/login') ? ' aria-current="page"' : '' ?> href="/login">Conexion</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link<?= ($_SERVER['REQUEST_URI'] === '/register') ? ' active' : '' ;?>"<?= ($_SERVER['REQUEST_URI'] === '/register') ? ' aria-current="page"' : '' ?> href="/register">Inscription</a>
-                    </li>
+                    <?php if ( isset($_SESSION['user']) && !empty($_SESSION['user']) ) : ?>
+                        <li class="nav-item">
+                            <a class="nav-link<?= ($_SERVER['REQUEST_URI'] === '/logout') ? ' active' : '' ;?>"<?= ($_SERVER['REQUEST_URI'] === '/logout') ? ' aria-current="page"' : '' ?> href="/logout">Déconnexion</a>
+                        </li>
+                        <?php else : ?>
+                        <li class="nav-item">
+                            <a class="nav-link<?= ($_SERVER['REQUEST_URI'] === '/login') ? ' active' : '' ;?>"<?= ($_SERVER['REQUEST_URI'] === '/login') ? ' aria-current="page"' : '' ?> href="/login">Conexion</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link<?= ($_SERVER['REQUEST_URI'] === '/register') ? ' active' : '' ;?>"<?= ($_SERVER['REQUEST_URI'] === '/register') ? ' aria-current="page"' : '' ?> href="/register">Inscription</a>
+                        </li>
+                    <?php endif ?>
                 </ul>
             </div>
         </div>

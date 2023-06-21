@@ -68,3 +68,9 @@
      */
 
      const USER = SRC . "/manager/user.php";
+
+     /**
+     * Cette constante représente le raccourci permettant de charger l'agent de sécurité d'authentification
+     */
+
+     const LOGIN_AUTHENTICATOR = SRC . "/security/loginAuthenticator.php";

@@ -41,12 +41,51 @@ require ABSTRACT_CONTROLLER;
                 /* Sauvegarder les messages d'erreurs en session*/
                 $_SESSION['form_errors'] = $errors;
 
-                /* Rediriger l'utilisateur ver la page de laquelle proviennent les informations
-                return redirectBack();*/
+                /* Rediriger l'utilisateur ver la page de laquelle proviennent les informations*/
+                return redirectBack();
             }
 
+            /* Dans le cas contraire */
+
+            require LOGIN_AUTHENTICATOR;
+
+            $formData = getOldValues($_POST);
+            
+            /* Tenter d'authentifier et récupérer la réponse coresspondante */
+            $response = authenticate($formData);
+
+            /* Si aucun utilisteur n'est récupéré, */
+            if ( $response === null) {
+                /* Sauvgarder les anciennes valeurs provenant du formulaire en session */
+                $_SESSION['old'] = getOldValues($_POST);
+
+                /* Sauvgarder le massage d'error en sesion*/
+                $_SESSION['bad_credentials'] = "Vos identifiants sont incorrects";
+
+                /* Rediriger l'utilisateur ver la page de laquelle proviennent les informations*/
+                return redirectBack();
+            }
+
+            /* Dans le cas contraire */
+
+            /* Authentifier l'utilisateur en sauvegardant ces données en session. */
+            $_SESSION['user'] = $response;
+
+            /* Le rediriger ver la page accueil et arrêter l'exécuion du script. */
+            return redirectToUrl('/');
         }
 
 
         return render("pages/visitor/authentication/login.html.php");
+    }
+
+    function logout() 
+    {
+        if ( isset($_SESSION['user']) && !empty($_SESSION['user'])) {
+            session_destroy();
+            unset($_SESSION['user']);
+            $_SESSION = [];
+        }
+
+        return redirectToUrl('/login');
     }
