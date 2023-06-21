@@ -72,17 +72,17 @@ function makeValidation(array $formDataArray, array $validationRulesArray, array
                     else if ( (substr($validationRule, 0, 6) === "unique") && ($messageKey === "$inputName.unique") ){
                         /* Procéder à la validation */
                         /* S'il y a des erreurs */
-                        if (_unique ($formDataArray[$inputName], $validationRule) ){
+                        if (_unique($formDataArray[$inputName], $validationRule) ){
                             /* Remplir le tableau des errors avec les messages d'erreurs corespondant prévus */
                             $errors[$inputName][] = $messageValue;
                         }
                     }
 
                     /* Si le nom de la règles de validation est "regex" et que son message personnalisé existe */
-                    else if ( (substr($validationRule, 0, 6) === "regex") && ($messageKey === "$inputName.regex") ){
+                    else if ( (substr($validationRule, 0, 5) === "regex") && ($messageKey === "$inputName.regex") ){
                         /* Procéder à la validation */
                         /* S'il y a des erreurs */
-                        if (_regex ($formDataArray[$inputName], $validationRule) ){
+                        if ( _regex($formDataArray[$inputName], $validationRule) ){
                             /* Remplir le tableau des errors avec les messages d'erreurs corespondant prévus */
                             $errors[$inputName][] = $messageValue;
                         }
@@ -91,7 +91,7 @@ function makeValidation(array $formDataArray, array $validationRulesArray, array
                     else if ( (substr($validationRule, 0, 4) === "same") && ($messageKey === "$inputName.same") ){
                         /* Procéder à la validation */
                         /* S'il y a des erreurs */
-                        if (_same ($formDataArray[$inputName], $validationRule, $formDataArray) ){
+                        if (_same($formDataArray[$inputName], $validationRule, $formDataArray) ){
                             /* Remplir le tableau des errors avec les messages d'erreurs corespondant prévus */
                             $errors[$inputName][] = $messageValue;
                         }

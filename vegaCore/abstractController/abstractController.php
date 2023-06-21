@@ -128,6 +128,8 @@
         {
             if(isset($_SESSION['form_errors'][$inputName]) && !empty($_SESSION['form_errors'][$inputName])){
                 $errorMessage = $_SESSION['form_errors'][$inputName];
+                unset($_SESSION['form_errors'][$inputName]);
+
                 foreach ($errorMessage as $error) {
                     return $error;
                 }
