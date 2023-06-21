@@ -10,25 +10,30 @@
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label for="firstName">Prénom</label>
-                            <input type="text" name="firstName" id="firstName" class="form-control" autofocus>
+                                <div class="text-danger"><?= formErrors('firstName'); ?></div>
+                            <input type="text" name="firstName" id="firstName" class="form-control" value="<?=old('firstName');?>" autofocus>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label for="lastName">Nom</label>
-                            <input type="text" name="lastName" id="lastName" class="form-control" >
+                            <div class="text-danger"><?= formErrors('lastName'); ?></div>
+                            <input type="text" name="lastName" id="lastName" class="form-control" value="<?=old('lastName');?>" >
                         </div>
                     </div>
                     <div class="mb-3">
                         <label for="email">Email</label>
-                        <input type="email" name="email" id="email" class="form-control" >
+                        <div class="text-danger"><?= formErrors('email'); ?></div>
+                        <input type="email" name="email" id="email" class="form-control" value="<?=old('email');?>">
                     </div>
                     <div class="mb-3">
                         <label for="password">Mot de passe</label>
-                        <input type="password" name="password" id="password" class="form-control" >
+                        <div class="text-danger"><?= formErrors('password'); ?></div>
+                        <input type="password" name="password" id="password" class="form-control" value="<?=old('passworld');?>">
                     </div>
                     <div class="mb-3">
                         <label for="confirmPassword">Confirmation du mot de passe</label>
+                        <div class="text-danger"><?= formErrors('confirmPassword'); ?></div>
                         <input type="password" name="confirmPassword" id="confirmPassword" class="form-control" >
                     </div>
                     <div class="mb-3 d-none">

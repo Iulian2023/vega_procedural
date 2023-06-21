@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 require ABSTRACT_CONTROLLER;
 
-    function register(): string {
+    function register() : string {
         /* Si le formulaire est soumis comme cela se doit */
         if ( isFormSubmitted($_POST) ) {
 
@@ -56,32 +56,35 @@ require ABSTRACT_CONTROLLER;
                 ]
             );
 
-            dd($errors);
-
 
             /* Si le validateur dit du'il y a des erreur */ 
-
+            if (count($errors) > 0) {
                 /* Sauvegarder les anciennes données en sesion */
-            
+                $_SESSION['old'] = getOldValues($_POST);
                 /* Sauvegarder les messager d'erreurs en sesion */
-
+                $_SESSION['form_errors'] = $errors;
                 /* Redirige automatiquement l'utilisateur vers 
                 la page de laquelle provient les informations */
             
                 /* Arrêter l'exécution du script */
-            
+                return redirectBack();
+            }
+
             /* Dans le cas contraire */
 
             /* Appeler le manager de la table "user" (model) */
+            require USER;
 
+            $cleanData = getOldValues($_POST);
             /* Demander au manager d'insérer le nouvel utilisateur dans le table "user" */
-
+            createUser($cleanData);
             /* Générer le message flash attestant de la réussite de la requête */
-
+            $_SESSION['succes'] = "Votre compte a bien été créé! Veuillez vous connecter.";
             /* Rediriger l'utilisateur ver la page de connexion */
 
             /* Arrêter l'éxecution du script */
+        
+            return redirectToUrl("/");
         }
-
-        return render("pages/visitor/registration/register.html.php");
-    }
+            return render("pages/visitor/registration/register.html.php");
+        }

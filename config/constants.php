@@ -56,3 +56,15 @@
      */
 
      const VALIDATOR = VEGA_CORE . "/validation/validator.php";
+
+     /**
+     * Cette constante représente le raccourci permettant d'accéder à la base des donées
+     */
+
+     const DB = CONFIG . "/database.php";
+
+     /**
+     * Cette constante représente le raccourci permettant d'accéder aux managers
+     */
+
+     const USER = SRC . "/manager/user.php";

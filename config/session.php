@@ -10,6 +10,8 @@
     session_set_cookie_params($sessionLifeTime);
 
     // Activation de l'utilisation des sessions
-    session_start();
+    if ( session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
     
 ?>

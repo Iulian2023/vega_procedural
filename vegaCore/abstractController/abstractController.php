@@ -106,4 +106,58 @@
     function dump(mixed $data){
         var_dump($data);
     }
+
+
+    /**
+     * Cet function permet de rediriger automatiquement l'utilisateur vers la page de laquelle proviennent les
+     * Puis elle arrête l'exécution du script
+     *
+     * @return void
+     */
+    function redirectBack(){
+         header("Location: $_SERVER[HTTP_REFERER]");
+    }
+
+    /**
+     * Cette function permet de reouturner les messages d'erreurs de l'input de formulaire
+     *
+     * @param string $inputName
+     * @return string
+     */
+    function formErrors(string $inputName) : string
+        {
+            if(isset($_SESSION['form_errors'][$inputName]) && !empty($_SESSION['form_errors'][$inputName])){
+                $errorMessage = $_SESSION['form_errors'][$inputName];
+                foreach ($errorMessage as $error) {
+                    return $error;
+                }
+            }
+            return "";
+        }
+
+        /**
+         * Cette function permet de retourner la valeur du champs, tapé au clavier précedement.
+         *
+         * @param string $inputName
+         * @return string
+         */
+        function old(string $inputName) : string {
+            if( isset($_SESSION['old'][$inputName]) && !empty($_SESSION['old'][$inputName])){
+                $old = $_SESSION['old'][$inputName];
+                unset($_SESSION['old'][$inputName]);
+
+                return $old;
+            }
+            return "";
+        }
+
+        /**
+         * Cette fonction permet d'effectuer une redirection vers l'url définie.
+         *
+         * @param string $uri
+         * @return void
+         */
+        function redirectToUrl(string $uri){
+            header("Location: $uri");  
+        }
 ?>

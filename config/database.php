@@ -1,6 +1,6 @@
 <?php
 /* Connexion à une base MySQL avec l'invocation de pilote */
-$dsn_db      = "$_ENV[DB_CONNECTION]:dbname = $_ENV[DB_DATABASE];host=$_ENV[DB_HOST]; post=$_ENV[DB_PORT]";
+$dsn_db      = "$_ENV[DB_CONNECTION]:dbname=$_ENV[DB_DATABASE];host=$_ENV[DB_HOST];post=$_ENV[DB_PORT]";
 $user_db     = "$_ENV[DB_USERNAME]";
 $password_db = "$_ENV[DB_PASSWORD]";
 
