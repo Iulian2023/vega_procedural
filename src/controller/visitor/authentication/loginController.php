@@ -3,6 +3,11 @@ declare(strict_types=1);
 
 require ABSTRACT_CONTROLLER;
 
+    /**
+     * Cette function permet de connecter l'utilisateur
+     *
+     * @return string
+     */
     function login() :string
     {
         /* Si le formulaire est soumis comme cela se doit */
@@ -72,13 +77,18 @@ require ABSTRACT_CONTROLLER;
             $_SESSION['user'] = $response;
 
             /* Le rediriger ver la page accueil et arrêter l'exécuion du script. */
-            return redirectToUrl('/');
+            return redirectToUrl('/user/home');
         }
 
 
         return render("pages/visitor/authentication/login.html.php");
     }
 
+    /**
+     * Cette fonction permet de déconnecter l'utilisateur
+     *
+     * @return void
+     */
     function logout() 
     {
         if ( isset($_SESSION['user']) && !empty($_SESSION['user'])) {

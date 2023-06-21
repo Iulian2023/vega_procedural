@@ -6,10 +6,4 @@ Accueil
 HTML;
 ?>
 
-<?php
-    $description = <<<HTML
-Visitez Vega
-HTML;
-?>
-
-<h1>Hello World ! </h1>
+<h1 class="text-center my-3 dispaly-5">Hello <?= $_SESSION['user']['first_name'] ?></h1>

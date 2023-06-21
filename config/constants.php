@@ -74,3 +74,9 @@
      */
 
      const LOGIN_AUTHENTICATOR = SRC . "/security/loginAuthenticator.php";
+
+     /**
+     * Cette constante représente le raccourci permettant de charger le Middleware d'authentification
+     */
+
+     const AUTH_MIDDLEWARE = SRC . "/security/authMiddleware.php";

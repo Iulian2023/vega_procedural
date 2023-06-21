@@ -162,4 +162,8 @@
         function redirectToUrl(string $uri){
             header("Location: $uri");  
         }
+
+        function protect(string $data){
+            return htmlspecialchars(stripslashes($data));
+        }
 ?>

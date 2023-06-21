@@ -11,7 +11,10 @@
                     </li>
                     <?php if ( isset($_SESSION['user']) && !empty($_SESSION['user']) ) : ?>
                         <li class="nav-item">
-                            <a class="nav-link<?= ($_SERVER['REQUEST_URI'] === '/logout') ? ' active' : '' ;?>"<?= ($_SERVER['REQUEST_URI'] === '/logout') ? ' aria-current="page"' : '' ?> href="/logout">Déconnexion</a>
+                            <a class="nav-link" href="/user/home">Espace</a>
+                            </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/logout">Déconnexion</a>
                         </li>
                         <?php else : ?>
                         <li class="nav-item">

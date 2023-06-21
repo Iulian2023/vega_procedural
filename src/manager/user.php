@@ -20,3 +20,32 @@
         $req->execute();
         $req->closeCursor();
     }
+
+    /**
+     * Cette fonction du manager de la table 'user' lui permet de récupérer l'utilisateur
+     * en fonction du critère définit
+     *
+     * @param array $criteria
+     * @return array|null
+     */
+    function findUserBy(array $criteria) : ?array {
+        
+        require DB;
+
+        $keys = array_keys($criteria);
+
+
+        $column = $keys[0];
+        $req = $db->prepare("SELECT * FROM user WHERE {$column}=:{$column}");
+        $req->bindValue(":{$column}", $criteria[$column]);
+        $req->execute();
+
+        if ( $req->rowCount() !== 1) {
+            return null;
+        }
+
+        $user = $req->fetch();
+        $req->closeCursor();
+
+        return $user;
+    }
