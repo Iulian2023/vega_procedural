@@ -4,6 +4,11 @@ declare(strict_types=1);
 require ABSTRACT_CONTROLLER;
 
     function register() : string {
+
+        if ( isset($_SESSION['user']) && !empty($_SESSION['user'])) {
+            return redirectToUrl('/');
+        }
+
         /* Si le formulaire est soumis comme cela se doit */
         if ( isFormSubmitted($_POST) ) {
 
@@ -18,9 +23,9 @@ require ABSTRACT_CONTROLLER;
                     "firstName"        => ["required", "string", "max:255", "regex:/^[A-Za-z-_]+$/"],
                     "lastName"         => ["required", "string", "max:255", "regex:/^[A-Za-z-_]+$/"],
                     "email"            => ["required", "string", "max:255", "email", "unique:user,email"],
-                    "password"        => ["required", "string", "min:12" ,"max:255", 
+                    "password"         => ["required", "string", "min:12" ,"max:255", 
                                            "regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{12,255}$/"],
-                    "confirmPassword" => ["required", "string", "min:12" ,"max:255", 
+                    "confirmPassword"  => ["required", "string", "min:12" ,"max:255", 
                                            "regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{12,255}$/",
                                            "same:password"]
                 ],
@@ -36,10 +41,10 @@ require ABSTRACT_CONTROLLER;
                     "lastName.regex"           => "Le nom ne doit pas contenir des chiffres.",
 
                     "email.required"           => "L'email est obligatoire.",
-                    "email.string"             => "Veillez entre une chaine de caractères.",
+                    "email.string"            => "Veillez entre une chaine de caractères.",
                     "email.max"                => "L'email ne doit pas dépasser 255 caractères.",
                     "email.email"              => "Veillez entre un email valide.",
-                    "email.unique"             => "Impossible de créer un compte avec cet email.",
+                    "email.unique"              => "Impossible de créer un compte avec cet email.",
 
                     "password.required"        => "Le mot de passe est obligatoire.",
                     "password.string"          => "Veillez entre une chaine de caractères.",
@@ -81,12 +86,12 @@ require ABSTRACT_CONTROLLER;
             /* Demander au manager d'insérer le nouvel utilisateur dans le table "user" */
             createUser($cleanData);
             /* Générer le message flash attestant de la réussite de la requête */
-            $_SESSION['succes'] = "Votre compte a bien été créé! Veuillez vous connecter.";
+            $_SESSION['success'] = "Votre compte a bien été créé! Veuillez vous connecter.";
             /* Rediriger l'utilisateur ver la page de connexion */
 
             /* Arrêter l'éxecution du script */
         
-            return redirectToUrl("/");
+            return redirectToUrl("/login");
         }
             return render("pages/visitor/registration/register.html.php");
         }

@@ -1,4 +1,4 @@
-<?php $theme = "themes/baseUser.html.php"; ?>
+<?php $theme = "themes/baseVisitor.html.php"; ?>
 
 <?php
     $title = <<<HTML

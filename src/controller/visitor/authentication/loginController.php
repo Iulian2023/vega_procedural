@@ -10,6 +10,11 @@ require ABSTRACT_CONTROLLER;
      */
     function login() :string
     {
+
+        if ( isset($_SESSION['user']) && !empty($_SESSION['user'])) {
+            return redirectToUrl('/');
+        }
+
         /* Si le formulaire est soumis comme cela se doit */
         if ( isFormSubmitted($_POST)) {
 

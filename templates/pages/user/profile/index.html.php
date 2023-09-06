@@ -17,6 +17,15 @@ HTML
 <div class="container ">
     <div class="row">
         <div class="col-md-6 mx-auto shadow p-4 bg-success">
+
+            <?php if( isset($_SESSION['success']) && !empty($_SESSION['success']) ) : ?>
+                <div class="text-center alert alert-success alert-dismissible fade show" role="alert">
+                    <?= $_SESSION['success']; ?>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                <?php unset($_SESSION['success']); ?>
+            <?php endif ?>
+
             <div class="card text-start">
                 <div class="card-body bg-success-subtle">
                     <p class="cart-title">
@@ -32,9 +41,10 @@ HTML
                             <?php endif ?>
                         <?php endforeach ?>
                     </p>
-                    <div class="d-flex justify-content-center align-items-center my-3 gap-3">
+                    <div class="d-flex flex-lg-row flex-column justify-content-center align-items-center my-3 gap-3 ">
                     <a href="/user/profile/edit" class="btn btn-secondary shadow">Modifier le profil</a>
-                    <a href="" class="btn btn-danger shadow">Modifier le mot de passe</a>
+                    <a href="/user/profile/edit-password" class="btn btn-success shadow">Modifier le mot de passe</a>
+                    <a href="/user/profile/delete" class="btn btn-danger shadow">Supprimer mon compte</a>
                     </div>
                 </div>
             </div>

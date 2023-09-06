@@ -87,11 +87,32 @@ function makeValidation(array $formDataArray, array $validationRulesArray, array
                             $errors[$inputName][] = $messageValue;
                         }
                     }
+
                     /* Si le nom de la règles de validation est "same" et que son message personnalisé existe */
                     else if ( (substr($validationRule, 0, 4) === "same") && ($messageKey === "$inputName.same") ){
                         /* Procéder à la validation */
                         /* S'il y a des erreurs */
                         if (_same($formDataArray[$inputName], $validationRule, $formDataArray) ){
+                            /* Remplir le tableau des errors avec les messages d'erreurs corespondant prévus */
+                            $errors[$inputName][] = $messageValue;
+                        }
+                    }
+
+                    /* Si le nom de la règles de validation est "uniqueOnUpdate" et que son message personnalisé existe */
+                    else if ( (substr($validationRule, 0, 14) === "uniqueOnUpdate") && ($messageKey === "$inputName.uniqueOnUpdate") ){
+                        /* Procéder à la validation */
+                        /* S'il y a des erreurs */
+                        if ( _uniqueOnUpdate($formDataArray[$inputName], $validationRule) ){
+                            /* Remplir le tableau des errors avec les messages d'erreurs corespondant prévus */
+                            $errors[$inputName][] = $messageValue;
+                        }
+                    }
+
+                    /* Si le nom de la règles de validation est "currentPassword" et que son message personnalisé existe */
+                    else if ( (substr($validationRule, 0, 15) === "currentPassword") && ($messageKey === "$inputName.currentPassword") ){
+                        /* Procéder à la validation */
+                        /* S'il y a des erreurs */
+                        if ( _currentPassword($formDataArray[$inputName], $validationRule) ){
                             /* Remplir le tableau des errors avec les messages d'erreurs corespondant prévus */
                             $errors[$inputName][] = $messageValue;
                         }
@@ -104,10 +125,110 @@ function makeValidation(array $formDataArray, array $validationRulesArray, array
         return $errors;
     }
 
+    /**
+     * Cette fonction du validateur lui permet de vérifier le mot de passe actuel de l'utilisateur.
+     *
+     * @param string $value
+     * @param string $validationRule
+     * 
+     * @return boolean
+     */
+    function _currentPassword(string $value, string $validationRule) : bool{
+        $tab = explode(":", $validationRule);
+        $tab = explode(",", $tab[1]);
+
+        $table = $tab[0];
+        $column = $tab[1];
+        $id = $tab[2];
+
+         /* Etablir une connexion avec la base de données */
+         require DB;
+
+         /* Effectuer la requête qfin de récupérer tous les enregistrement de la table */
+         $req = $db->prepare("SELECT * FROM {$table} WHERE id=:id LIMIT 1");
+         $req->bindValue("id", $id);
+         $req->execute();
+
+         if ( $req->rowCount() != 1) {
+            return true;
+         }
+
+         $user = $req->fetch();
+
+         if ( ! password_verify($value, $user["password"]) ) {
+            return true;
+         }
+         return false;
+
+    }
+
+    /**
+     * Cette fonction du validateur lui permet de vérifier si la valeur envoyée par l'utilisateur
+     * lors de la modification existe déjà dans la table ou non.
+     *
+     * @param string $value
+     * @param string $validationRule
+     * 
+     * @return boolean
+     */
+    function _uniqueOnUpdate(string $value, string $validationRule) : bool{
+        $tab = explode(":", $validationRule);
+        $tab = explode(",", $tab[1]);
+
+        $table  = $tab[0];
+        $column = $tab[1];
+        $id     = $tab[2];
+        // dd($id);
+
+        /* Etablir une connexion avec la base de données */
+        require DB;
+
+        /* Effectuer la requête qfin de récupérer tous les enregistrement de la table */
+        $req = $db->prepare("SELECT * FROM {$table}");
+        $req->execute();
+        $rows = $req->fetchAll();
+
+        // dd($rows);
+
+        /* Parcourir le tableau de tous les utilisateur */
+        /* Et chacun d'entre eux, */
+        foreach ($rows as $row) {
+            /* Excluons le cas où les identifiants sont les mêmes, */
+            if ( $row['id'] != $id) {
+        
+
+                /* Vérifier si la valeur envoyée depuis le formoulaire n'est pas la même que 
+                 * l'une des valeur de la colone de comparasion */
+                if ( $row[$column] == $value) {
+                    return true;
+                }
+            }
+        }
+        
+        return false;
+
+    }
+
+    /**
+     * Cette fonction de validateur permet de récupérer les données provenant du formulaire 
+     * protégées contre les failles de type XSS. 
+     *
+     * @param array $data
+     * @return array
+     */
     function getOldValues(array $data) : array{
         return xssProtection($data);
     }
 
+    /**
+     * Cette fonction de validateur permet de vérifier si la valeur envoyée par l'utilisateur correspond
+     * à celle dont on souhaite effectuer la comparaison.
+     *
+     * @param string $value
+     * @param string $validationRule
+     * @param array $formDataArray
+     * @return boolean
+     */
     function _same(string $value, string $validationRule, array $formDataArray) : bool {
        $tab = explode(":", $validationRule);
        $key = $tab[1];
